@@ -72,6 +72,30 @@ public class Test
         Assert.True((int)response.StatusCode == 404, $"HomeEnergyApi did not return \"404: Not Found\" HTTP Response Code on GET request at {url}; instead received {(int)response.StatusCode}: {response.StatusCode}");
     }
 
+    [Theory, TestPriority(5)]
+    [InlineData("/Homes/99")]
+    public async Task HomeEnergyApiReturns404NotFoundFromDELETEUsingRouteParamterForNonExistentHome(string url)
+    {
+        var client = _factory.CreateClient();
 
+        var response = await client.DeleteAsync(url);
 
+        Assert.True((int)response.StatusCode == 404, $"HomeEnergyApi did not return \"404: Not Found\" HTTP Response Code on GET request at {url}; instead received {(int)response.StatusCode}: {response.StatusCode}");
+    }
+
+    [Theory, TestPriority(6)]
+    [InlineData("/Homes/99")]
+    public async Task HomeEnergyApiReturns404NotFoundFromPUTUsingRouteParamterForNonExistentHome(string url)
+    {
+        var client = _factory.CreateClient();
+
+        HttpRequestMessage sendRequest = new HttpRequestMessage(HttpMethod.Put, url);
+        sendRequest.Content = new StringContent(testHome,
+                                                Encoding.UTF8,
+                                                "application/json");
+
+        var response = await client.SendAsync(sendRequest);
+
+        Assert.True((int)response.StatusCode == 404, $"HomeEnergyApi did not return \"404: Not Found\" HTTP Response Code on GET request at {url}; instead received {(int)response.StatusCode}: {response.StatusCode}");
+    }
 }

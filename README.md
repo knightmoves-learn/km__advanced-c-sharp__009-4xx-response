@@ -14,6 +14,8 @@ In `HomeEnergyApi/Controllers/HomesController.cs`...
   - Should respond with `404: Not Found` when the no home in `homesList` has the `Id` being passed.
 - Update the `UpdateHome()` method.
   - Should respond with `404: Not Found` when the no home in `homesList` has the `Id` being passed.
+- Update the `DeleteHome()` method.
+  - Should respond with `404: Not Found` when the no home in `homesList` has the `Id` being passed.
 
 Additional Information:
 
